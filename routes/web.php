@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,15 @@ Route::get('/', function () {
 Route::get('/user',function(Request $request){
     return $request->fullUrl();
 });
+Route::get('/host-test',function(Request $request){
+    $host=$request->host();
+    $httpHost=$request->httpHost();
+    $schemeAndHttpHost=$request->schemeAndHttpHost(); return "<h2> Host:".$host
+    . "<h2> httpHost: ".$httpHost
+    ."<h2> schemeAndHttpHost: ".$schemeAndHttpHost;
+});
+Route::get('/method-test',function(Request $request){
+    $res=$request->method(); return	$res;
+});
+Route::get('/login',[LoginController::class,'index'])->name('login.index');
+Route::post('/login',[LoginController::class,'loginSubmit'])->name('login.submit');
